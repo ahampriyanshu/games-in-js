@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Piano-Tiles</title>
 <style>
@@ -18,24 +19,16 @@
         font-size: 1.3em;
         width: 100px;
         height: 100px;
-        font-weight: light;
         font-family: 'Trebuchet MS', sans-serif;
         text-align: center;
         line-height: 100px;
-        color: white;
+        color: black;
         border: none;
         border-radius: 60%; 
         cursor: pointer;
-        transition: width 0.9s, height 0.9s ;
-        background: linear-gradient(to bottom,lightgreen,cyan);
-    }
-    #button:hover{
-        width: 105px;
-        height:105px;
-        background: linear-gradient(to top, red,white);
     }
     body {
-        background: linear-gradient(to bottom, lightblue,orange);
+        background:white;
     }
     #piano:hover{
       cursor: pointer;  
@@ -50,7 +43,6 @@
 <canvas id="score_bar" width="300" height="70" style="position: absolute; left:70%;top:31%;"></canvas>
 <canvas id="background" width="300" height="550" style="position: absolute; top:70; left: 36%;" ></canvas>
 <canvas id="piano" width="300" height="550" style="position: absolute; top:70; left: 36%;"></canvas>
-<audio  id="music" src="https://docs.google.com/uc?export=download&id=1ZqQL_lnpYLCYaeKiUwwVhsWq-sfOIGPl" loop ></audio>
 
 <div  id="div">
 <span id="button">START</span>
@@ -76,11 +68,9 @@ document.getElementById('div').addEventListener('click',function(e){
     if(content.innerHTML === "START"){
         intervalTmp = window.setInterval(upDate,5);
         geneTmp = window.setInterval(geneBlock,550);
-        document.getElementById('music').play();
         content.innerHTML = "PAUSE";
     }
     else if(content.innerHTML === "PAUSE"){
-        document.getElementById('music').pause();
         window.clearInterval(intervalTmp);
         window.clearInterval(geneTmp);
         content.innerHTML = "START";
@@ -91,11 +81,7 @@ document.getElementById('div').addEventListener('click',function(e){
 });
 	
 function paintScoreBar(){
-    score_gradient = context_score.createLinearGradient(0,0,0,80);
-    score_gradient.addColorStop(0,"rgba(74,171,254,0)");
-    score_gradient.addColorStop(0.5,"rgba(74,84,254,0)");
-    score_gradient.addColorStop(1,"rgba(116,74,254,0)");
-    context_score.fillStyle = score_gradient;
+    context_score.fillStyle = 'white';
     context_score.fillRect(0,0,300,70);    
 }
 function geneBlock(){
@@ -115,35 +101,14 @@ function geneBlock(){
      
 }
 function paintWindow(){
-    my_gradient = context_back.createLinearGradient(0,0,0,550);
-    my_gradient.addColorStop(0,"lightgreen");
-    my_gradient.addColorStop(1,"lightblue");
 
-    context_back.fillStyle = my_gradient;
+    context_back.fillStyle = 'white';
     context_back.fillRect(0,0,300,550);
-
-    context_back.beginPath();
-    context_back.moveTo(72,0);
-    context_back.lineTo(72,550);
-    context_back.strokeStyle = "white";
-    context_back.stroke();
-
-    context_back.beginPath();
-    context_back.moveTo(148,0);
-    context_back.lineTo(148,550);
-    context_back.strokeStyle = "white";
-    context_back.stroke();
-
-    context_back.beginPath();
-    context_back.moveTo(226,0);
-    context_back.lineTo(226,550);
-    context_back.strokeStyle = "white";
-    context_back.stroke();
 
     context_back.beginPath();
     context_back.moveTo(0,470);
     context_back.lineTo(300,470);
-    context_back.strokeStyle = "white";
+    context_back.strokeStyle = "black";
     context_back.stroke();
 }
 function Block(index){
@@ -207,10 +172,7 @@ function upDate(){
     context_score.font = "50px Verdana";
     context_score.textAlign = 'center';
     paintScoreBar();
-    score_text = context_score.createLinearGradient(0,0,0,80);
-    score_text.addColorStop(0,"cyan");
-    score_text.addColorStop(1,"lightgreen");
-    context_score.fillStyle = score_text;
+    context_score.fillStyle = 'black';
     context_score.fillText(score.toString(),(a.width / 2) - (textWidth / 2)+9,50);
     
 
@@ -246,11 +208,10 @@ function upDate(){
             }
             if(myTiles[i].y > 470){
                 context.clearRect(myTiles[i].x,myTiles[i].y,70,120);
-                context.fillStyle = "rgba(245,13,13,0.8)";
+                context.fillStyle = "gray";
                 context.fillRect(myTiles[i].x,myTiles[i].y,70,120);
                 myTiles[i].live = false;
                 eachState[i] = false;
-                document.getElementById('music').pause();
                 window.clearInterval(intervalTmp);
                 window.clearInterval(geneTmp);
                 content.innerHTML = "RESTART";
